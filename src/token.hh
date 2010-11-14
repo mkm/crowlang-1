@@ -14,7 +14,17 @@ private:
 
 public:
   IntegerToken(int);
-  int value();
+  int value() const;
+  virtual std::string toString() const;
+};
+
+class IdentifierToken : public Token {
+private:
+  std::string _value;
+
+public:
+  IdentifierToken(std::string);
+  std::string value() const;
   virtual std::string toString() const;
 };
 

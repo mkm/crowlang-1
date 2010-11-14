@@ -72,12 +72,20 @@ void Lexer::lexNumber() {
     s += current();
     next();
   }
+  if (isAlpha(current())) {
+    throw BadCharException(current());
+  }
   stringstream(s) >> value;
   addToken(new IntegerToken(value));
 }
 
 void Lexer::lexWord() {
-  
+  string value;
+  while (!eos() && isAlphaNumeric(current())) {
+    value += current();
+    next();
+  }
+  addToken(new IdentifierToken(value));
 }
 
 void Lexer::addToken(Token* token) {
