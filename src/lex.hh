@@ -20,9 +20,11 @@ private:
   char current();
   void next();
   bool eos();
+  void eosCheck();
   bool lexToken();
   void lexNumber();
   void lexWord();
+  void lexString();
   void addToken(Token*);
   
 public:

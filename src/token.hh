@@ -28,4 +28,14 @@ public:
   virtual std::string toString() const;
 };
 
+class StringToken : public Token {
+private:
+  std::string _value;
+
+public:
+  StringToken(std::string);
+  std::string value() const;
+  virtual std::string toString() const;
+};
+
 #endif

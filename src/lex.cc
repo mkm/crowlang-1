@@ -34,9 +34,7 @@ vector<Token*> Lexer::lex() {
 }
 
 char Lexer::current() {
-  if (eos()) {
-    throw EOSException();
-  }
+  eosCheck();
   return _input[_index];
 }
 
@@ -48,6 +46,12 @@ bool Lexer::eos() {
   return _index >= _input.length();
 }
 
+void Lexer::eosCheck() {
+  if (eos()) {
+    throw EOSException();
+  }
+}
+
 bool Lexer::lexToken() {
   if (eos()) {
     return false;
@@ -57,6 +61,8 @@ bool Lexer::lexToken() {
     lexNumber();
   } else if (isAlpha(c)) {
     lexWord();
+  } else if (c == '"') {
+    lexString();
   } else if (isWhite(c)) {
     next();
   } else {
@@ -67,12 +73,13 @@ bool Lexer::lexToken() {
 
 void Lexer::lexNumber() {
   string s;
+  char c = '\0';
   int value;
-  while (!eos() && isNumeric(current())) {
-    s += current();
+  while (!eos() && isNumeric(c = current())) {
+    s += c;
     next();
   }
-  if (isAlpha(current())) {
+  if (isAlpha(c)) {
     throw BadCharException(current());
   }
   stringstream(s) >> value;
@@ -81,11 +88,25 @@ void Lexer::lexNumber() {
 
 void Lexer::lexWord() {
   string value;
-  while (!eos() && isAlphaNumeric(current())) {
-    value += current();
+  char c;
+  while (!eos() && isAlphaNumeric(c = current())) {
+    value += c;
     next();
   }
   addToken(new IdentifierToken(value));
+}
+
+void Lexer::lexString() {
+  string value;
+  char c;
+  next(); // skip initial quote
+  while ((c = current()) != '"') {
+    value += c;
+    next();
+  }
+  next(); // skip terminating quote
+  eosCheck();
+  addToken(new StringToken(value));
 }
 
 void Lexer::addToken(Token* token) {

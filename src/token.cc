@@ -31,3 +31,17 @@ string IdentifierToken::toString() const {
   return ss.str();
 }
 
+StringToken::StringToken(string value) :
+  _value(value)
+{}
+
+string StringToken::value() const {
+  return _value;
+}
+
+string StringToken::toString() const {
+  stringstream ss;
+  ss << "String [" << _value << "]";
+  return ss.str();
+}
+
