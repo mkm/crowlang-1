@@ -104,8 +104,8 @@ void Lexer::lexString() {
     value += c;
     next();
   }
-  next(); // skip terminating quote
   eosCheck();
+  next(); // skip terminating quote
   addToken(new StringToken(value));
 }
 

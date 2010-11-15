@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SUCC="basic00.cr basic01.cr basic02.cr"
+
+for file in $SUCC
+do
+    echo "$DIR/$file"
+    "$CROWC" <"$DIR/$file" >/dev/null || exit $?;
+done
+
+

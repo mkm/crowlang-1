@@ -17,10 +17,10 @@ int main(/*int argc, char** argv*/) {
       cout << (*i)->toString() << endl;
     }
   } catch (LexException& e) {
-    cout << e.message() << endl;
+    cerr << e.message() << endl;
     return 1;
   } catch (exception& e) {
-    cout << "runtime exception: " << e.what() << endl;
+    cerr << "runtime exception: " << e.what() << endl;
     return 127;
   }
   return 0;
