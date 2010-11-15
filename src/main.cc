@@ -19,5 +19,9 @@ int main(/*int argc, char** argv*/) {
   } catch (LexException& e) {
     cout << e.message() << endl;
     return 1;
+  } catch (exception& e) {
+    cout << "runtime exception: " << e.what() << endl;
+    return 127;
   }
+  return 0;
 }
