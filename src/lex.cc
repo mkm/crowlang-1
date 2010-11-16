@@ -25,6 +25,8 @@ bool isWhite(char c) {
 
 Lexer::Lexer(string& input) :
   _index(0),
+  _line(1),
+  _column(0),
   _input(input)
 {}
 
@@ -39,6 +41,12 @@ char Lexer::current() {
 }
 
 void Lexer::next() {
+  if (current() == '\n') {
+    _line++;
+    _column = 0;
+  } else {
+    _column++;
+  }
   _index++;
 }
 
@@ -66,7 +74,7 @@ bool Lexer::lexToken() {
   } else if (isWhite(c)) {
     next();
   } else {
-    throw BadCharException(c);
+    throw BadCharException(c, _line, _column);
   }
   return true;
 }
@@ -80,7 +88,7 @@ void Lexer::lexNumber() {
     next();
   }
   if (isAlpha(c)) {
-    throw BadCharException(current());
+    throw BadCharException(c, _line, _column);
   }
   stringstream(s) >> value;
   addToken(new IntegerToken(value));
@@ -113,16 +121,26 @@ void Lexer::addToken(Token* token) {
   _tokens.push_back(token);
 }
 
+LexException::LexException(size_t line, size_t column) :
+  _line(line),
+  _column(column)
+{}
+
+EOSException::EOSException() :
+  LexException(0, 0)
+{}
+
 string EOSException::message() {
   return "Unexpected end of input";
 }
 
-BadCharException::BadCharException(char c) :
+BadCharException::BadCharException(char c, size_t line, size_t column) :
+  LexException(line, column),
   _c(c)
 {}
 
 string BadCharException::message() {
   stringstream ss;
-  ss << "Unexpected character '" << _c << "' (" << int(_c) << ")";
+  ss << _line << ":" << _column << ": Unexpected character '" << _c << "' (" << int(_c) << ")";
   return ss.str();
 }

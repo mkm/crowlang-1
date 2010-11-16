@@ -14,6 +14,8 @@ bool isAlphaNumeric(char);
 class Lexer {
 private:
   size_t _index;
+  size_t _line;
+  size_t _column;
   std::string& _input;
   std::vector<Token*> _tokens;
 
@@ -33,12 +35,18 @@ public:
 };
 
 class LexException {
+protected:
+  size_t _line;
+  size_t _column;
+  
 public:
+  LexException(size_t, size_t);
   virtual std::string message() = 0;
 };
 
 class EOSException : public LexException {
 public:
+  EOSException();
   virtual std::string message();
 };
 
@@ -47,7 +55,7 @@ private:
   char _c;
 
 public:
-  BadCharException(char);
+  BadCharException(char, size_t, size_t);
   virtual std::string message();
 };
 
