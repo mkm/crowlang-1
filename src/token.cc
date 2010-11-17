@@ -45,3 +45,17 @@ string StringToken::toString() const {
   return ss.str();
 }
 
+OpenParenToken::OpenParenToken()
+{}
+
+string OpenParenToken::toString() const {
+  return "OpenParen";
+}
+
+CloseParenToken::CloseParenToken()
+{}
+
+string CloseParenToken::toString() const {
+  return "CloseParen";
+}
+

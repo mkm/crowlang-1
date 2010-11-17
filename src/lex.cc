@@ -65,16 +65,27 @@ bool Lexer::lexToken() {
     return false;
   }
   char c = current();
-  if (isNumeric(c)) {
-    lexNumber();
-  } else if (isAlpha(c)) {
-    lexWord();
-  } else if (c == '"') {
-    lexString();
-  } else if (isWhite(c)) {
+  switch (c) {
+  case '(':
+    addToken(new OpenParenToken());
     next();
-  } else {
-    throw BadCharException(c, _line, _column);
+    break;
+  case ')':
+    addToken(new CloseParenToken());
+    next();
+    break;
+  default:
+    if (isNumeric(c)) {
+      lexNumber();
+    } else if (isAlpha(c)) {
+      lexWord();
+    } else if (c == '"') {
+      lexString();
+    } else if (isWhite(c)) {
+      next();
+    } else {
+      throw BadCharException(c, _line, _column);
+    }
   }
   return true;
 }

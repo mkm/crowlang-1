@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SUCC="basic00.cr basic01.cr basic02.cr"
+SUCC="basic00.cr basic01.cr basic02.cr basic03.cr"
 
 for file in $SUCC
 do

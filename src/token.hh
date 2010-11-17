@@ -38,4 +38,17 @@ public:
   virtual std::string toString() const;
 };
 
+class OpenParenToken : public Token {
+public:
+  OpenParenToken();
+  virtual std::string toString() const;
+};
+
+
+class CloseParenToken : public Token {
+public:
+  CloseParenToken();
+  virtual std::string toString() const;
+};
+
 #endif
