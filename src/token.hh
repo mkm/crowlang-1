@@ -51,4 +51,10 @@ public:
   virtual std::string toString() const;
 };
 
+class CommaToken : public Token {
+public:
+  CommaToken();
+  virtual std::string toString() const;
+};
+
 #endif

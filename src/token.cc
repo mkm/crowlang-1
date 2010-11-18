@@ -59,3 +59,10 @@ string CloseParenToken::toString() const {
   return "CloseParen";
 }
 
+CommaToken::CommaToken()
+{}
+
+string CommaToken::toString() const {
+  return "Comma";
+}
+

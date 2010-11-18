@@ -74,6 +74,10 @@ bool Lexer::lexToken() {
     addToken(new CloseParenToken());
     next();
     break;
+  case ',':
+    addToken(new CommaToken());
+    next();
+    break;
   default:
     if (isNumeric(c)) {
       lexNumber();
