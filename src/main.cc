@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "lex.hh"
+#include "parser.hh"
 
 using namespace std;
 
