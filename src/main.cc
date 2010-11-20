@@ -1,15 +1,20 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include "lex.hh"
 #include "parser.hh"
 
 using namespace std;
 
-int main(/*int argc, char** argv*/) {
+int main(int argc, char** argv) {
   try {
+    if (argc < 2) {
+      return 126;
+    }
+    ifstream source(argv[1]);
     string input;
     char c;
-    while (!cin.get(c).eof()) {
+    while (!source.get(c).eof()) {
       input += char(c);
     }
     vector<Token*> tokens = lex(input);

@@ -1,11 +1,7 @@
 #!/bin/bash
 
 export CROWC="src/crowc"
-export DIR="."
 
-export DIR="$DIR/test"
-"$DIR/run" $@ || {
-    echo "*** Test returned code $? ***"
-    echo "*** Failure ***"
-    exit 1
-}
+scons || exit 1
+cd test
+./run || exit 1

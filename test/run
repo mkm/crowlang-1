@@ -1,4 +1,34 @@
 #!/bin/bash
 
-export DIR="$DIR/lex"
-"$DIR/run" || exit $?
+CROWC="../$CROWC"
+
+function test_report_fail() {
+    echo "Test failed"
+}
+
+function test_success() {
+    test_exit_code 0 $@
+}
+
+function test_exit_code() {
+    expected=$1
+    shift
+    echo $@
+    $@ >/dev/null 2&>1
+    if test $? -eq $expected
+    then
+        exit 0
+    else
+        test_report_fail $@
+        exit 1
+    fi
+}
+
+export CROWC
+export -f test_report_fail test_success test_exit_code
+
+for file in *.test
+do
+    "./$file" || exit 1
+done
+
