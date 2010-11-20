@@ -51,7 +51,7 @@ void Lexer::next() {
 }
 
 bool Lexer::eos() {
-  return _index >= _input.length();
+  return _index >= _input.size();
 }
 
 void Lexer::eosCheck() {

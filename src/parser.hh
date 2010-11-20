@@ -1,6 +1,7 @@
 #ifndef _PARSER_H_
 #define _PARSER_H_
 
+#include "token.hh"
 #include "syntax.hh"
 #include <vector>
 
@@ -17,10 +18,13 @@ public:
   Token* current();
   void next();
   bool eos();
+  void eosCheck();
+  ParserState& operator=(const ParserState&);
 };
 
 class TrState {
 private:
+  bool _active;
   ParserState& _current;
   ParserState _saved;
   TrState(const TrState&);
@@ -45,6 +49,14 @@ private:
 public:
   Parser(std::vector<Token*>&);
   SourceFile* parse();
+};
+
+class ParseException {
+  
+};
+
+class EOTException : public ParseException {
+  
 };
 
 #endif

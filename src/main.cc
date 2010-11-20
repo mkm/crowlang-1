@@ -13,10 +13,14 @@ int main(/*int argc, char** argv*/) {
       input += char(c);
     }
     vector<Token*> tokens = lex(input);
+    /*
     vector<Token*>::const_iterator i, n;
     for (i = tokens.begin(), n = tokens.end(); i != n; i++) {
       cout << (*i)->toString() << endl;
     }
+    */
+    Syntax* syntax = parse(tokens);
+    cout << syntax->toString() << endl;
   } catch (LexException& e) {
     cerr << e.message() << endl;
     return 1;
@@ -26,3 +30,4 @@ int main(/*int argc, char** argv*/) {
   }
   return 0;
 }
+
