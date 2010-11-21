@@ -84,3 +84,7 @@ void Parser::eosCheck() {
   _state.eosCheck();
 }
 
+string EOTException::message() const {
+  return "Unexpected end of tokens";
+}
+

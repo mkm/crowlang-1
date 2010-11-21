@@ -52,11 +52,12 @@ public:
 };
 
 class ParseException {
-  
+public:
+  virtual std::string message() const = 0;
 };
 
 class EOTException : public ParseException {
-  
+  virtual std::string message() const;
 };
 
 #endif

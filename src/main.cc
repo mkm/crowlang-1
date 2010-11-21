@@ -3,34 +3,54 @@
 #include <string>
 #include "lex.hh"
 #include "parser.hh"
+#include "args.hh"
 
 using namespace std;
 
 int main(int argc, char** argv) {
+  bool quiet = false;
   try {
-    if (argc < 2) {
-      return 126;
+    Config config(argc, argv);
+    quiet = config.quiet();
+    ifstream source(config.sourceFile().c_str());
+    if (source.fail()) {
+      throw NoSuchFileException();
     }
-    ifstream source(argv[1]);
     string input;
     char c;
     while (!source.get(c).eof()) {
       input += char(c);
     }
-    vector<Token*> tokens = lex(input);
-    /*
-    vector<Token*>::const_iterator i, n;
-    for (i = tokens.begin(), n = tokens.end(); i != n; i++) {
-      cout << (*i)->toString() << endl;
+    if (config.goal() < Lex) {
+      return 0;
     }
-    */
+    vector<Token*> tokens = lex(input);
+    if (config.goal() < Parse) {
+      return 0;
+    }
     Syntax* syntax = parse(tokens);
-    cout << syntax->toString() << endl;
+    if (!quiet) {
+      cout << syntax->toString() << endl;
+    }
   } catch (LexException& e) {
-    cerr << e.message() << endl;
+    if (!quiet) {
+      cerr << e.message() << endl;
+    }
     return 1;
+  } catch (ParseException& e) {
+    if (!quiet) {
+      cerr << e.message() << endl;
+    }
+    return 2;
+  } catch (ArgException& e) {
+    if (!quiet) {
+      cerr << e.message() << endl;
+    }
+    return 126;
   } catch (exception& e) {
-    cerr << "runtime exception: " << e.what() << endl;
+    if (!quiet) {
+      cerr << "runtime exception: " << e.what() << endl;
+    }
     return 127;
   }
   return 0;
