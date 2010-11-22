@@ -4,8 +4,16 @@
 #include <string>
 
 class Token {
+private:
+  size_t _line;
+  size_t _column;
+  
 public:
+  Token(size_t, size_t);
+  
   virtual std::string toString() const = 0;
+  size_t line();
+  size_t column();
 };
 
 class IntegerToken : public Token {
@@ -13,7 +21,7 @@ private:
   int _value;
 
 public:
-  IntegerToken(int);
+  IntegerToken(int, size_t, size_t);
   int value() const;
   virtual std::string toString() const;
 };
@@ -23,7 +31,7 @@ private:
   std::string _value;
 
 public:
-  IdentifierToken(std::string);
+  IdentifierToken(std::string, size_t, size_t);
   std::string value() const;
   virtual std::string toString() const;
 };
@@ -33,27 +41,27 @@ private:
   std::string _value;
 
 public:
-  StringToken(std::string);
+  StringToken(std::string, size_t, size_t);
   std::string value() const;
   virtual std::string toString() const;
 };
 
 class OpenParenToken : public Token {
 public:
-  OpenParenToken();
+  OpenParenToken(size_t, size_t);
   virtual std::string toString() const;
 };
 
 
 class CloseParenToken : public Token {
 public:
-  CloseParenToken();
+  CloseParenToken(size_t, size_t);
   virtual std::string toString() const;
 };
 
 class CommaToken : public Token {
 public:
-  CommaToken();
+  CommaToken(size_t, size_t);
   virtual std::string toString() const;
 };
 

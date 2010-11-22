@@ -67,15 +67,15 @@ bool Lexer::lexToken() {
   char c = current();
   switch (c) {
   case '(':
-    addToken(new OpenParenToken());
+    addToken(new OpenParenToken(_line, _column));
     next();
     break;
   case ')':
-    addToken(new CloseParenToken());
+    addToken(new CloseParenToken(_line, _column));
     next();
     break;
   case ',':
-    addToken(new CommaToken());
+    addToken(new CommaToken(_line, _column));
     next();
     break;
   default:
@@ -106,7 +106,7 @@ void Lexer::lexNumber() {
     throw BadCharException(c, _line, _column);
   }
   stringstream(s) >> value;
-  addToken(new IntegerToken(value));
+  addToken(new IntegerToken(value, _line, _column));
 }
 
 void Lexer::lexWord() {
@@ -116,7 +116,7 @@ void Lexer::lexWord() {
     value += c;
     next();
   }
-  addToken(new IdentifierToken(value));
+  addToken(new IdentifierToken(value, _line, _column));
 }
 
 void Lexer::lexString() {
@@ -129,7 +129,7 @@ void Lexer::lexString() {
   }
   eosCheck();
   next(); // skip terminating quote
-  addToken(new StringToken(value));
+  addToken(new StringToken(value, _line, _column));
 }
 
 void Lexer::addToken(Token* token) {

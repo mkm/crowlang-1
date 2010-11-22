@@ -3,7 +3,13 @@
 
 using namespace std;
 
-IntegerToken::IntegerToken(int value) :
+Token::Token(size_t line, size_t column) :
+  _line(line),
+  _column(column)
+{}
+
+IntegerToken::IntegerToken(int value, size_t line, size_t column) :
+  Token(line, column),
   _value(value)
 {}
 
@@ -17,7 +23,8 @@ string IntegerToken::toString() const {
   return ss.str();
 }
 
-IdentifierToken::IdentifierToken(string value) :
+IdentifierToken::IdentifierToken(string value, size_t line, size_t column) :
+  Token(line, column),
   _value(value)
 {}
 
@@ -31,7 +38,8 @@ string IdentifierToken::toString() const {
   return ss.str();
 }
 
-StringToken::StringToken(string value) :
+StringToken::StringToken(string value, size_t line, size_t column) :
+  Token(line, column),
   _value(value)
 {}
 
@@ -45,21 +53,24 @@ string StringToken::toString() const {
   return ss.str();
 }
 
-OpenParenToken::OpenParenToken()
+OpenParenToken::OpenParenToken(size_t line, size_t column) :
+  Token(line, column)
 {}
 
 string OpenParenToken::toString() const {
   return "OpenParen";
 }
 
-CloseParenToken::CloseParenToken()
+CloseParenToken::CloseParenToken(size_t line, size_t column) :
+  Token(line, column)
 {}
 
 string CloseParenToken::toString() const {
   return "CloseParen";
 }
 
-CommaToken::CommaToken()
+CommaToken::CommaToken(size_t line, size_t column) :
+  Token(line, column)
 {}
 
 string CommaToken::toString() const {
