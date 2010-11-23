@@ -65,7 +65,7 @@ Parser::Parser(vector<Token*>& tokens) :
 {}
 
 SourceFile* Parser::parse() {
-  return new SourceFile();
+  return parseSourceFile();
 }
 
 Token* Parser::current() {
@@ -84,7 +84,27 @@ void Parser::eosCheck() {
   _state.eosCheck();
 }
 
+SourceFile* Parser::parseSourceFile() {
+  vector<FuncDecl*> decls;
+  while (!eos()) {
+    decls.push_back(parseFuncDecl());
+  }
+  return new SourceFile(decls);
+}
+
+FuncDecl* Parser::parseFuncDecl() {
+  IdentifierToken* nameToken = dynamic_cast<IdentifierToken*>(current());
+  if (!nameToken) {
+    throw ExpectedTokenException();
+  }
+  next();
+  return new FuncDecl(nameToken->value());
+}
+
 string EOTException::message() const {
   return "Unexpected end of tokens";
 }
 
+string ExpectedTokenException::message() const {
+  return "Expected a token, but did not get it";
+}

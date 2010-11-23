@@ -44,7 +44,9 @@ private:
   void next();
   bool eos();
   void eosCheck();
-  TrState&& tr();
+
+  SourceFile* parseSourceFile();
+  FuncDecl* parseFuncDecl();
   
 public:
   Parser(std::vector<Token*>&);
@@ -57,6 +59,12 @@ public:
 };
 
 class EOTException : public ParseException {
+public:
+  virtual std::string message() const;
+};
+
+class ExpectedTokenException : public ParseException {
+public:
   virtual std::string message() const;
 };
 

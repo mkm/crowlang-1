@@ -1,0 +1,3 @@
+#!/bin/bash
+
+test_success $CROWC --parse --quiet basic_parse.cr

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+test_exit_code 2 $CROWC --parse --quiet basic_parse_error.cr
+

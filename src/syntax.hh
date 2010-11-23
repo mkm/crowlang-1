@@ -2,6 +2,7 @@
 #define _SYNTAX_H_
 
 #include <string>
+#include <vector>
 
 class Syntax {
 public:
@@ -9,10 +10,20 @@ public:
 };
 
 class FuncDecl : public Syntax {
+private:
+  std::string _name;
+  
+public:
+  FuncDecl(std::string);
   virtual std::string toString() const;
 };
 
 class SourceFile : public Syntax {
+private:
+  std::vector<FuncDecl*> _decls;
+  
+public:
+  SourceFile(std::vector<FuncDecl*>);
   virtual std::string toString() const;
 };
 
