@@ -47,6 +47,8 @@ private:
 
   SourceFile* parseSourceFile();
   FuncDecl* parseFuncDecl();
+  void parseOpenParen();
+  void parseCloseParen();
   
 public:
   Parser(std::vector<Token*>&);

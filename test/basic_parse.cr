@@ -1,3 +1,3 @@
-alfa
-beta
-gamma
+alfa()
+beta()
+gamma()

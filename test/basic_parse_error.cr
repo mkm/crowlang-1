@@ -1,1 +1,2 @@
-alfa()
+alfa
+beta(foo)
