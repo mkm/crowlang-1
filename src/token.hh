@@ -65,4 +65,12 @@ public:
   virtual std::string toString() const;
 };
 
+class SemiColonToken : public Token {
+public:
+  SemiColonToken(size_t, size_t);
+  virtual std::string toString() const;
+};
+
+
+
 #endif

@@ -78,6 +78,10 @@ bool Lexer::lexToken() {
     addToken(new CommaToken(_line, _column));
     next();
     break;
+  case ';':
+    addToken(new SemiColonToken(_line, _column));
+    next();
+    break;
   default:
     if (isNumeric(c)) {
       lexNumber();

@@ -98,23 +98,10 @@ FuncDecl* Parser::parseFuncDecl() {
     throw ExpectedTokenException();
   }
   next();
-  parseOpenParen();
-  parseCloseParen();
+  parseToken<OpenParenToken>();
+  parseToken<CloseParenToken>();
+  parseToken<SemiColonToken>();
   return new FuncDecl(nameToken->value());
-}
-
-void Parser::parseOpenParen() {
-  if (!dynamic_cast<OpenParenToken*>(current())) {
-    throw ExpectedTokenException();
-  }
-  next();
-}
-
-void Parser::parseCloseParen() {
-  if (!dynamic_cast<CloseParenToken*>(current())) {
-    throw ExpectedTokenException();
-  }
-  next();
 }
 
 string EOTException::message() const {

@@ -47,8 +47,8 @@ private:
 
   SourceFile* parseSourceFile();
   FuncDecl* parseFuncDecl();
-  void parseOpenParen();
-  void parseCloseParen();
+  template<class T>
+  void parseToken();
   
 public:
   Parser(std::vector<Token*>&);
@@ -69,5 +69,14 @@ class ExpectedTokenException : public ParseException {
 public:
   virtual std::string message() const;
 };
+
+template<class T>
+void Parser::parseToken() {
+  if (!dynamic_cast<T*>(current())) {
+    throw ExpectedTokenException();
+  }
+  next();
+}
+
 
 #endif

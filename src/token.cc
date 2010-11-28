@@ -77,3 +77,12 @@ string CommaToken::toString() const {
   return "Comma";
 }
 
+SemiColonToken::SemiColonToken(size_t line, size_t column) :
+  Token(line, column)
+{}
+
+string SemiColonToken::toString() const {
+  return "SemiColon";
+}
+
+
