@@ -42,10 +42,11 @@ public:
 
 class LetExpr : public Expr {
   IdentExpr* _ident;
+  Expr* _value;
   Expr* _body;
   
 public:
-  LetExpr(IdentExpr*, Expr*);
+  LetExpr(IdentExpr*, Expr*, Expr*);
   virtual std::string toString() const;
 };
 

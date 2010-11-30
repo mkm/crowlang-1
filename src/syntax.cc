@@ -18,8 +18,9 @@ string SourceFile::toString() const {
   return "SourceFile";
 }
 
-LetExpr::LetExpr(IdentExpr* ident, Expr* body) :
+LetExpr::LetExpr(IdentExpr* ident, Expr* value, Expr* body) :
   _ident(ident),
+  _value(value),
   _body(body)
 {}
 

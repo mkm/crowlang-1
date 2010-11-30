@@ -132,9 +132,12 @@ LetExpr* Parser::parseLetExpr() {
   TrState tr(_state);
   parseToken<LetToken>();
   IdentExpr* ident = parseIdentExpr();
-  Expr* expr = parseExpr();
+  parseToken<EqualToken>();
+  Expr* value = parseExpr();
+  parseToken<InToken>();
+  Expr* body = parseExpr();
   tr.commit();
-  return new LetExpr(ident, expr);
+  return new LetExpr(ident, value, body);
 }
 
 IdentExpr* Parser::parseIdentExpr() {

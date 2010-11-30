@@ -85,6 +85,14 @@ string SemiColonToken::toString() const {
   return "SemiColon";
 }
 
+EqualToken::EqualToken(size_t line, size_t column) :
+  Token(line, column)
+{}
+
+string EqualToken::toString() const {
+  return "Equal";
+}
+
 LetToken::LetToken(size_t line, size_t column) :
   Token(line, column)
 {}
@@ -92,4 +100,14 @@ LetToken::LetToken(size_t line, size_t column) :
 string LetToken::toString() const {
   return "Let";
 }
+
+InToken::InToken(size_t line, size_t column) :
+  Token(line, column)
+{}
+
+string InToken::toString() const {
+  return "In";
+}
+
+
 

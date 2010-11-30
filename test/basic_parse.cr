@@ -1,3 +1,6 @@
-alfa() let foo 42;
-beta() 43;
-gamma() let x let y 44;
+alfa() let foo = 42 in 43;
+beta() 44;
+gamma()
+    let x = 45 in
+    let y = 46 in
+    47;

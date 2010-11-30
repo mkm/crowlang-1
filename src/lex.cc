@@ -82,6 +82,10 @@ bool Lexer::lexToken() {
     addToken(new SemiColonToken(_line, _column));
     next();
     break;
+  case '=':
+    addToken(new EqualToken(_line, _column));
+    next();
+    break;
   default:
     if (isNumeric(c)) {
       lexNumber();
@@ -139,6 +143,8 @@ void Lexer::lexString() {
 Token* Lexer::wordToToken(string value, size_t line, size_t column) {
   if (value == "let") {
     return new LetToken(line, column);
+  } else if (value == "in") {
+    return new InToken(line, column);
   } else {
     return new IdentifierToken(value, line, column);
   }
