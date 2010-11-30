@@ -1,3 +1,3 @@
-alfa() let 42;
+alfa() let foo 42;
 beta() 43;
-gamma() let let 44;
+gamma() let x let y 44;

@@ -131,9 +131,21 @@ Expr* Parser::parseTermExpr() {
 LetExpr* Parser::parseLetExpr() {
   TrState tr(_state);
   parseToken<LetToken>();
+  IdentExpr* ident = parseIdentExpr();
   Expr* expr = parseExpr();
   tr.commit();
-  return new LetExpr(expr);
+  return new LetExpr(ident, expr);
+}
+
+IdentExpr* Parser::parseIdentExpr() {
+  TrState tr(_state);
+  IdentifierToken* token = dynamic_cast<IdentifierToken*>(current());
+  if (!token) {
+    throw ExpectedTokenException();
+  }
+  next();
+  tr.commit();
+  return new IdentExpr(token->value());
 }
 
 IntConstantExpr* Parser::parseIntConstantExpr() {

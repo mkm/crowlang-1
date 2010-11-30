@@ -31,11 +31,21 @@ class Expr : public Syntax {
   
 };
 
+class IdentExpr : public Expr {
+private:
+  std::string _name;
+  
+public:
+  IdentExpr(std::string);
+  virtual std::string toString() const;
+};
+
 class LetExpr : public Expr {
+  IdentExpr* _ident;
   Expr* _body;
   
 public:
-  LetExpr(Expr*);
+  LetExpr(IdentExpr*, Expr*);
   virtual std::string toString() const;
 };
 

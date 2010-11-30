@@ -18,7 +18,8 @@ string SourceFile::toString() const {
   return "SourceFile";
 }
 
-LetExpr::LetExpr(Expr* body) :
+LetExpr::LetExpr(IdentExpr* ident, Expr* body) :
+  _ident(ident),
   _body(body)
 {}
 
@@ -32,5 +33,13 @@ IntConstantExpr::IntConstantExpr(int value) :
 
 string IntConstantExpr::toString() const {
   return "IntConstantExpr";
+}
+
+IdentExpr::IdentExpr(string name) :
+  _name(name)
+{}
+
+string IdentExpr::toString() const {
+  return "IdentExpr";
 }
 

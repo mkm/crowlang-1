@@ -1,3 +1,0 @@
-#!/bin/bash
-
-test_exit_code 1 $CROWC --lex --quiet basic_string_error.cr

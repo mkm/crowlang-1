@@ -1,3 +1,0 @@
-#!/bin/bash
-
-test_success $CROWC --lex --quiet basic_string.cr

@@ -50,6 +50,7 @@ private:
   Expr* parseExpr();
   Expr* parseTermExpr();
   LetExpr* parseLetExpr();
+  IdentExpr* parseIdentExpr();
   IntConstantExpr* parseIntConstantExpr();
   template<class T>
   void parseToken();

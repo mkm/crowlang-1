@@ -28,10 +28,7 @@ int main(int argc, char** argv) {
     if (config.goal() < Parse) {
       return 0;
     }
-    Syntax* syntax = parse(tokens);
-    if (!quiet) {
-      cout << syntax->toString() << endl;
-    }
+    /*Syntax* syntax = */parse(tokens);
   } catch (LexException& e) {
     if (!quiet) {
       cerr << e.message() << endl;
