@@ -120,7 +120,7 @@ void Lexer::lexWord() {
     value += c;
     next();
   }
-  addToken(new IdentifierToken(value, _line, _column));
+  addToken(wordToToken(value, _line, _column));
 }
 
 void Lexer::lexString() {
@@ -134,6 +134,14 @@ void Lexer::lexString() {
   eosCheck();
   next(); // skip terminating quote
   addToken(new StringToken(value, _line, _column));
+}
+
+Token* Lexer::wordToToken(string value, size_t line, size_t column) {
+  if (value == "let") {
+    return new LetToken(line, column);
+  } else {
+    return new IdentifierToken(value, line, column);
+  }
 }
 
 void Lexer::addToken(Token* token) {

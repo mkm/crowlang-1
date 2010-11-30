@@ -71,6 +71,10 @@ public:
   virtual std::string toString() const;
 };
 
-
+class LetToken : public Token {
+public:
+  LetToken(size_t, size_t);
+  virtual std::string toString() const;
+};
 
 #endif

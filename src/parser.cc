@@ -129,7 +129,11 @@ Expr* Parser::parseTermExpr() {
 }
 
 LetExpr* Parser::parseLetExpr() {
-  throw ExpectedTokenException();
+  TrState tr(_state);
+  parseToken<LetToken>();
+  Expr* expr = parseExpr();
+  tr.commit();
+  return new LetExpr(expr);
 }
 
 IntConstantExpr* Parser::parseIntConstantExpr() {

@@ -85,4 +85,11 @@ string SemiColonToken::toString() const {
   return "SemiColon";
 }
 
+LetToken::LetToken(size_t line, size_t column) :
+  Token(line, column)
+{}
+
+string LetToken::toString() const {
+  return "Let";
+}
 

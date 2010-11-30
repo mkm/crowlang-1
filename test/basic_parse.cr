@@ -1,3 +1,3 @@
-alfa() 42;
+alfa() let 42;
 beta() 43;
-gamma() 44;
+gamma() let let 44;

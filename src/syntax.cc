@@ -18,6 +18,10 @@ string SourceFile::toString() const {
   return "SourceFile";
 }
 
+LetExpr::LetExpr(Expr* body) :
+  _body(body)
+{}
+
 string LetExpr::toString() const {
   return "LetExpr";
 }

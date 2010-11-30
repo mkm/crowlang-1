@@ -27,6 +27,7 @@ private:
   void lexNumber();
   void lexWord();
   void lexString();
+  Token* wordToToken(std::string, size_t, size_t);
   void addToken(Token*);
   
 public:

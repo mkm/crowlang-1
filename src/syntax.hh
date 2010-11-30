@@ -32,7 +32,10 @@ class Expr : public Syntax {
 };
 
 class LetExpr : public Expr {
+  Expr* _body;
+  
 public:
+  LetExpr(Expr*);
   virtual std::string toString() const;
 };
 
