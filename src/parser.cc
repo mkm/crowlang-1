@@ -114,7 +114,11 @@ Expr* Parser::parseExpr() {
   try {
     expr = parseLetExpr();
   } catch (ParseException& e) {
-    expr = parseIntConstantExpr();
+    try {
+      expr = parseIntConstantExpr();
+    } catch (ParseException& e) {
+      expr = parseIdentExpr();
+    }
   }
   tr.commit();
   return expr;

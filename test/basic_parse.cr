@@ -1,4 +1,4 @@
-alfa() let foo = 42 in 43;
+alfa() let foo = 42 in foo;
 beta() 44;
 gamma()
     let x = 45 in
