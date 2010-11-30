@@ -27,4 +27,22 @@ public:
   virtual std::string toString() const;
 };
 
+class Expr : public Syntax {
+  
+};
+
+class LetExpr : public Expr {
+public:
+  virtual std::string toString() const;
+};
+
+class IntConstantExpr : public Expr {
+private:
+  int _value;
+  
+public:
+  IntConstantExpr(int);
+  virtual std::string toString() const;
+};
+
 #endif

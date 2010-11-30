@@ -17,3 +17,16 @@ SourceFile::SourceFile(vector<FuncDecl*> decls) :
 string SourceFile::toString() const {
   return "SourceFile";
 }
+
+string LetExpr::toString() const {
+  return "LetExpr";
+}
+
+IntConstantExpr::IntConstantExpr(int value) :
+  _value(value)
+{}
+
+string IntConstantExpr::toString() const {
+  return "IntConstantExpr";
+}
+

@@ -47,6 +47,10 @@ private:
 
   SourceFile* parseSourceFile();
   FuncDecl* parseFuncDecl();
+  Expr* parseExpr();
+  Expr* parseTermExpr();
+  LetExpr* parseLetExpr();
+  IntConstantExpr* parseIntConstantExpr();
   template<class T>
   void parseToken();
   
@@ -72,10 +76,12 @@ public:
 
 template<class T>
 void Parser::parseToken() {
+  TrState tr(_state);
   if (!dynamic_cast<T*>(current())) {
     throw ExpectedTokenException();
   }
   next();
+  tr.commit();
 }
 
 

@@ -85,14 +85,17 @@ void Parser::eosCheck() {
 }
 
 SourceFile* Parser::parseSourceFile() {
+  TrState tr(_state);
   vector<FuncDecl*> decls;
   while (!eos()) {
     decls.push_back(parseFuncDecl());
   }
+  tr.commit();
   return new SourceFile(decls);
 }
 
 FuncDecl* Parser::parseFuncDecl() {
+  TrState tr(_state);
   IdentifierToken* nameToken = dynamic_cast<IdentifierToken*>(current());
   if (!nameToken) {
     throw ExpectedTokenException();
@@ -100,8 +103,44 @@ FuncDecl* Parser::parseFuncDecl() {
   next();
   parseToken<OpenParenToken>();
   parseToken<CloseParenToken>();
-  parseToken<SemiColonToken>();
+  parseTermExpr();
+  tr.commit();
   return new FuncDecl(nameToken->value());
+}
+
+Expr* Parser::parseExpr() {
+  TrState tr(_state);
+  Expr* expr = NULL;
+  try {
+    expr = parseLetExpr();
+  } catch (ParseException& e) {
+    expr = parseIntConstantExpr();
+  }
+  tr.commit();
+  return expr;
+}
+
+Expr* Parser::parseTermExpr() {
+  TrState tr(_state);
+  Expr* expr = parseExpr();
+  parseToken<SemiColonToken>();
+  tr.commit();
+  return expr;
+}
+
+LetExpr* Parser::parseLetExpr() {
+  throw ExpectedTokenException();
+}
+
+IntConstantExpr* Parser::parseIntConstantExpr() {
+  TrState tr(_state);
+  IntegerToken* token = dynamic_cast<IntegerToken*>(current());
+  if (!token) {
+    throw ExpectedTokenException();
+  }
+  next();
+  tr.commit();
+  return new IntConstantExpr(token->value());
 }
 
 string EOTException::message() const {
