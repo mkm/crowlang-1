@@ -102,6 +102,7 @@ FuncDecl* Parser::parseFuncDecl() {
   }
   next();
   parseToken<OpenParenToken>();
+  parseList<IdentExpr*>(&Parser::parseIdentExpr);
   parseToken<CloseParenToken>();
   parseTermExpr();
   tr.commit();

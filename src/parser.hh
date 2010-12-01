@@ -54,6 +54,8 @@ private:
   IntConstantExpr* parseIntConstantExpr();
   template<class T>
   void parseToken();
+  template<class T>
+  std::vector<T> parseList(T (Parser::*)());
   
 public:
   Parser(std::vector<Token*>&);
@@ -85,5 +87,27 @@ void Parser::parseToken() {
   tr.commit();
 }
 
+template<class T>
+std::vector<T> Parser::parseList(T (Parser::*p)()) {
+  TrState tr(_state);
+  std::vector<T> list;
+  try {
+    list.push_back((this->*p)());
+    while (true) {
+      try {
+        TrState ttr(_state);
+        parseToken<CommaToken>();
+        list.push_back((this->*p)());
+        ttr.commit();
+      } catch (ParseException& e) {
+        break;
+      }
+    }
+  } catch (ParseException& e) {
+    
+  }
+  tr.commit();
+  return list;
+}
 
 #endif
