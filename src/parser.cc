@@ -118,7 +118,11 @@ Expr* Parser::parseExpr() {
     try {
       expr = parseIntConstantExpr();
     } catch (ParseException& e) {
-      expr = parseIdentExpr();
+      try {
+        expr = parseCallExpr();
+      } catch (ParseException& e) {
+        expr = parseIdentExpr();
+      }
     }
   }
   tr.commit();
@@ -131,6 +135,16 @@ Expr* Parser::parseTermExpr() {
   parseToken<SemiColonToken>();
   tr.commit();
   return expr;
+}
+
+CallExpr* Parser::parseCallExpr() {
+  TrState tr(_state);
+  IdentExpr* func = parseIdentExpr();
+  parseToken<OpenParenToken>();
+  vector<Expr*> args = parseList<Expr*>(&Parser::parseExpr);
+  parseToken<CloseParenToken>();
+  tr.commit();
+  return new CallExpr(func, args);
 }
 
 LetExpr* Parser::parseLetExpr() {

@@ -44,3 +44,12 @@ string IdentExpr::toString() const {
   return "IdentExpr";
 }
 
+CallExpr::CallExpr(IdentExpr* func, vector<Expr*> args) :
+  _func(func),
+  _args(args)
+{}
+
+string CallExpr::toString() const {
+  return "CallExpr";
+}
+

@@ -1,5 +1,5 @@
-alfa() let foo = 42 in foo;
-beta() 44;
+alfa() let foo = f() in foo;
+beta() alfa(2, alfa(3));
 gamma(a, b)
     let x = 45 in
     let y = 46 in

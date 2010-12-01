@@ -49,6 +49,7 @@ private:
   FuncDecl* parseFuncDecl();
   Expr* parseExpr();
   Expr* parseTermExpr();
+  CallExpr* parseCallExpr();
   LetExpr* parseLetExpr();
   IdentExpr* parseIdentExpr();
   IntConstantExpr* parseIntConstantExpr();

@@ -59,4 +59,14 @@ public:
   virtual std::string toString() const;
 };
 
+class CallExpr : public Expr {
+private:
+  IdentExpr* _func;
+  std::vector<Expr*> _args;
+
+public:
+  CallExpr(IdentExpr*, std::vector<Expr*>);
+  virtual std::string toString() const;
+};
+
 #endif
