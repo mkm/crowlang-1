@@ -3,10 +3,12 @@
 
 #include <string>
 #include <vector>
+#include "atree.hh"
 
 class Syntax {
 public:
   virtual std::string toString() const = 0;
+  virtual ATree* atree() const = 0;
 };
 
 class FuncDecl : public Syntax {
@@ -16,6 +18,7 @@ private:
 public:
   FuncDecl(std::string);
   virtual std::string toString() const;
+  virtual ATree* atree() const;
 };
 
 class SourceFile : public Syntax {
@@ -25,6 +28,7 @@ private:
 public:
   SourceFile(std::vector<FuncDecl*>);
   virtual std::string toString() const;
+  virtual ATree* atree() const;
 };
 
 class Expr : public Syntax {
@@ -38,6 +42,7 @@ private:
 public:
   IdentExpr(std::string);
   virtual std::string toString() const;
+  virtual ATree* atree() const;
 };
 
 class LetExpr : public Expr {
@@ -48,6 +53,7 @@ class LetExpr : public Expr {
 public:
   LetExpr(IdentExpr*, Expr*, Expr*);
   virtual std::string toString() const;
+  virtual ATree* atree() const;
 };
 
 class IntConstantExpr : public Expr {
@@ -57,6 +63,7 @@ private:
 public:
   IntConstantExpr(int);
   virtual std::string toString() const;
+  virtual ATree* atree() const;
 };
 
 class CallExpr : public Expr {
@@ -67,6 +74,7 @@ private:
 public:
   CallExpr(IdentExpr*, std::vector<Expr*>);
   virtual std::string toString() const;
+  virtual ATree* atree() const;
 };
 
 #endif
