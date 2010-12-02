@@ -1,0 +1,3 @@
+#!/bin/bash
+
+test_success $CROWC --lex basic_lex.cr
