@@ -23,6 +23,7 @@ public:
   IdentExpr(std::string);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  std::string name();
 };
 
 class LetExpr : public Expr {
@@ -34,6 +35,9 @@ public:
   LetExpr(IdentExpr*, Expr*, Expr*);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  IdentExpr* ident();
+  Expr* value();
+  Expr* body();
 };
 
 class IntConstantExpr : public Expr {
@@ -44,6 +48,7 @@ public:
   IntConstantExpr(int);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  int value();
 };
 
 class CallExpr : public Expr {
@@ -55,6 +60,8 @@ public:
   CallExpr(IdentExpr*, std::vector<Expr*>);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  IdentExpr* func();
+  std::vector<Expr*> args();
 };
 
 class FuncDecl : public Syntax {
@@ -67,6 +74,9 @@ public:
   FuncDecl(std::string, std::vector<IdentExpr*>, Expr*);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  std::string name();
+  std::vector<IdentExpr*> params();
+  Expr* body();
 };
 
 class SourceFile : public Syntax {
@@ -77,6 +87,7 @@ public:
   SourceFile(std::vector<FuncDecl*>);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  std::vector<FuncDecl*> decls();
 };
 
 #endif

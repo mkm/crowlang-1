@@ -28,6 +28,10 @@ ATree* IntConstantExpr::atree() const {
   return new ATree("IntConstantExpr");
 }
 
+int IntConstantExpr::value() {
+  return _value;
+}
+
 IdentExpr::IdentExpr(string name) :
   _name(name)
 {}
@@ -38,6 +42,10 @@ string IdentExpr::toString() const {
 
 ATree* IdentExpr::atree() const {
   return new ATree("IdentExpr [" + _name + "]");
+}
+
+string IdentExpr::name() {
+  return _name;
 }
 
 CallExpr::CallExpr(IdentExpr* func, vector<Expr*> args) :
@@ -53,6 +61,14 @@ ATree* CallExpr::atree() const {
   ATree* f = (new ATree("CallFunc"))->add(_func->atree());
   ATree* p = (new ATree("CallArgs"))->add(_args);
   return (new ATree("CallExpr"))->add(f)->add(p);
+}
+
+IdentExpr* CallExpr::func() {
+  return _func;
+}
+
+vector<Expr*> CallExpr::args() {
+  return _args;
 }
 
 FuncDecl::FuncDecl(string name, vector<IdentExpr*> params, Expr* body) :
@@ -71,6 +87,18 @@ ATree* FuncDecl::atree() const {
   return (new ATree("FuncDecl [" + _name + "]"))->add(p)->add(b);
 }
 
+string FuncDecl::name() {
+  return _name;
+}
+
+std::vector<IdentExpr*> FuncDecl::params() {
+  return _params;
+}
+
+Expr* FuncDecl::body() {
+  return _body;
+}
+
 SourceFile::SourceFile(vector<FuncDecl*> decls) :
   _decls(decls)
 {}
@@ -81,5 +109,9 @@ string SourceFile::toString() const {
 
 ATree* SourceFile::atree() const {
   return (new ATree("SourceFile"))->add(_decls);
+}
+
+vector<FuncDecl*> SourceFile::decls() {
+  return _decls;
 }
 
