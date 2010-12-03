@@ -64,14 +64,9 @@ string FuncDecl::toString() const {
 }
 
 ATree* FuncDecl::atree() const {
-  ATree* t = new ATree("FuncDecl [" + _name + "]");
-  ATree* p = new ATree("FuncParams");
-  vector<IdentExpr*>::const_iterator i, n;
-  for (i = _params.begin(), n = _params.end(); i != n; i++) {
-    p->add((*i)->atree());
-  }
+  ATree* p = (new ATree("FuncParams"))->add(_params);
   ATree* b = (new ATree("FuncBody"))->add(_body->atree());
-  return t->add(p)->add(b);
+  return (new ATree("FuncDecl [" + _name + "]"))->add(p)->add(b);
 }
 
 SourceFile::SourceFile(vector<FuncDecl*> decls) :
@@ -83,11 +78,6 @@ string SourceFile::toString() const {
 }
 
 ATree* SourceFile::atree() const {
-  ATree* t = new ATree("SourceFile");
-  vector<FuncDecl*>::const_iterator i, n;
-  for (i = _decls.begin(), n = _decls.end(); i != n; i++) {
-    t->add((*i)->atree());
-  }
-  return t;
+  return (new ATree("SourceFile"))->add(_decls);
 }
 
