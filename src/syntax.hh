@@ -11,26 +11,6 @@ public:
   virtual ATree* atree() const = 0;
 };
 
-class FuncDecl : public Syntax {
-private:
-  std::string _name;
-  
-public:
-  FuncDecl(std::string);
-  virtual std::string toString() const;
-  virtual ATree* atree() const;
-};
-
-class SourceFile : public Syntax {
-private:
-  std::vector<FuncDecl*> _decls;
-  
-public:
-  SourceFile(std::vector<FuncDecl*>);
-  virtual std::string toString() const;
-  virtual ATree* atree() const;
-};
-
 class Expr : public Syntax {
   
 };
@@ -73,6 +53,28 @@ private:
 
 public:
   CallExpr(IdentExpr*, std::vector<Expr*>);
+  virtual std::string toString() const;
+  virtual ATree* atree() const;
+};
+
+class FuncDecl : public Syntax {
+private:
+  std::string _name;
+  std::vector<IdentExpr*> _params;
+  Expr* _body;
+  
+public:
+  FuncDecl(std::string, std::vector<IdentExpr*>, Expr*);
+  virtual std::string toString() const;
+  virtual ATree* atree() const;
+};
+
+class SourceFile : public Syntax {
+private:
+  std::vector<FuncDecl*> _decls;
+  
+public:
+  SourceFile(std::vector<FuncDecl*>);
   virtual std::string toString() const;
   virtual ATree* atree() const;
 };

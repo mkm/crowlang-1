@@ -20,7 +20,7 @@ void ATree::write(ostream* os, int depth) {
   for (int i = 0; i < depth; i++) {
     indent += " ";
   }
-  (*os) << _label << endl;
+  (*os) << indent << _label << endl;
   vector<ATree*>::const_iterator i, n;
   for (i = _children.begin(), n = _children.end(); i != n; i++) {
     (*i)->write(os, depth + 2);

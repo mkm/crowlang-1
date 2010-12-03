@@ -28,7 +28,10 @@ int main(int argc, char** argv) {
     if (config.goal() < Parse) {
       return 0;
     }
-    /*Syntax* syntax = */parse(tokens);
+    Syntax* syntax = parse(tokens);
+    if (config.dumpParse()) {
+      syntax->atree()->write(&cout);
+    }
   } catch (LexException& e) {
     if (!quiet) {
       cerr << e.message() << endl;

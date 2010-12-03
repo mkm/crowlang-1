@@ -5,7 +5,8 @@ using namespace std;
 Config::Config(int argc, char** argv) :
   _sourceFile(),
   _quiet(false),
-  _goal(Compile)
+  _goal(Compile),
+  _dumpParse(false)
 {
   parseArgs(convertArgs(argc, argv));
 }
@@ -27,6 +28,8 @@ void Config::parseArgs(vector<string> args) {
       _goal = Parse;
     } else if (*i == "--quiet") {
       _quiet = true;
+    } else if (*i == "--dump-parse") {
+      _dumpParse = true;
     } else {
       if (_sourceFile == "") {
         _sourceFile = *i;
@@ -50,6 +53,10 @@ bool Config::quiet() {
 
 Goal Config::goal() {
   return _goal;
+}
+
+bool Config::dumpParse() {
+  return _dumpParse;
 }
 
 string MultipleFileException::message() const {

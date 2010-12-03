@@ -2,35 +2,6 @@
 
 using namespace std;
 
-FuncDecl::FuncDecl(string name) :
-  _name(name)
-{}
-
-string FuncDecl::toString() const {
-  return "FuncDecl";
-}
-
-ATree* FuncDecl::atree() const {
-  return new ATree("FuncDecl [" + _name + "]");
-}
-
-SourceFile::SourceFile(vector<FuncDecl*> decls) :
-  _decls(decls)
-{}
-
-string SourceFile::toString() const {
-  return "SourceFile";
-}
-
-ATree* SourceFile::atree() const {
-  ATree* t = new ATree("SourceFile");
-  vector<FuncDecl*>::const_iterator i, n;
-  for (i = _decls.begin(), n = _decls.end(); i != n; i++) {
-    t->add((*i)->atree());
-  }
-  return t;
-}
-
 LetExpr::LetExpr(IdentExpr* ident, Expr* value, Expr* body) :
   _ident(ident),
   _value(value),
@@ -80,5 +51,43 @@ string CallExpr::toString() const {
 
 ATree* CallExpr::atree() const {
   return new ATree("CallExpr");
+}
+
+FuncDecl::FuncDecl(string name, vector<IdentExpr*> params, Expr* body) :
+  _name(name),
+  _params(params),
+  _body(body)
+{}
+
+string FuncDecl::toString() const {
+  return "FuncDecl";
+}
+
+ATree* FuncDecl::atree() const {
+  ATree* t = new ATree("FuncDecl [" + _name + "]");
+  ATree* p = new ATree("FuncParams");
+  vector<IdentExpr*>::const_iterator i, n;
+  for (i = _params.begin(), n = _params.end(); i != n; i++) {
+    p->add((*i)->atree());
+  }
+  ATree* b = (new ATree("FuncBody"))->add(_body->atree());
+  return t->add(p)->add(b);
+}
+
+SourceFile::SourceFile(vector<FuncDecl*> decls) :
+  _decls(decls)
+{}
+
+string SourceFile::toString() const {
+  return "SourceFile";
+}
+
+ATree* SourceFile::atree() const {
+  ATree* t = new ATree("SourceFile");
+  vector<FuncDecl*>::const_iterator i, n;
+  for (i = _decls.begin(), n = _decls.end(); i != n; i++) {
+    t->add((*i)->atree());
+  }
+  return t;
 }
 

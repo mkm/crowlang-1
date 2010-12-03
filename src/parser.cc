@@ -102,11 +102,11 @@ FuncDecl* Parser::parseFuncDecl() {
   }
   next();
   parseToken<OpenParenToken>();
-  parseList<IdentExpr*>(&Parser::parseIdentExpr);
+  vector<IdentExpr*> params = parseList<IdentExpr*>(&Parser::parseIdentExpr);
   parseToken<CloseParenToken>();
-  parseTermExpr();
+  Expr* body = parseTermExpr();
   tr.commit();
-  return new FuncDecl(nameToken->value());
+  return new FuncDecl(nameToken->value(), params, body);
 }
 
 Expr* Parser::parseExpr() {

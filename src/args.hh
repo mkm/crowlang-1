@@ -15,6 +15,7 @@ private:
   std::string _sourceFile;
   bool _quiet;
   Goal _goal;
+  bool _dumpParse;
 
   std::vector<std::string> convertArgs(int, char**);
   void parseArgs(std::vector<std::string>);
@@ -25,6 +26,7 @@ public:
   std::string sourceFile();
   bool quiet();
   Goal goal();
+  bool dumpParse();
 };
 
 class ArgException {
