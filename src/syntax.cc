@@ -13,7 +13,7 @@ string LetExpr::toString() const {
 }
 
 ATree* LetExpr::atree() const {
-  return new ATree("LetExpr");
+  return (new ATree("LetExpr"))->add(_ident->atree())->add(_value->atree())->add(_body->atree());
 }
 
 IntConstantExpr::IntConstantExpr(int value) :
@@ -50,7 +50,9 @@ string CallExpr::toString() const {
 }
 
 ATree* CallExpr::atree() const {
-  return new ATree("CallExpr");
+  ATree* f = (new ATree("CallFunc"))->add(_func->atree());
+  ATree* p = (new ATree("CallArgs"))->add(_args);
+  return (new ATree("CallExpr"))->add(f)->add(p);
 }
 
 FuncDecl::FuncDecl(string name, vector<IdentExpr*> params, Expr* body) :
