@@ -6,4 +6,7 @@ in
 42
 ;
 =
+if
+then
+else
 

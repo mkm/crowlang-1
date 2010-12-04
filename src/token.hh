@@ -89,4 +89,22 @@ public:
   virtual std::string toString() const;
 };
 
+class IfToken : public Token {
+public:
+  IfToken(size_t, size_t);
+  virtual std::string toString() const;
+};
+
+class ThenToken : public Token {
+public:
+  ThenToken(size_t, size_t);
+  virtual std::string toString() const;
+};
+
+class ElseToken : public Token {
+public:
+  ElseToken(size_t, size_t);
+  virtual std::string toString() const;
+};
+
 #endif

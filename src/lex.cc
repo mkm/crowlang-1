@@ -145,6 +145,12 @@ Token* Lexer::wordToToken(string value, size_t line, size_t column) {
     return new LetToken(line, column);
   } else if (value == "in") {
     return new InToken(line, column);
+  } else if (value == "if") {
+    return new IfToken(line, column);
+  } else if (value == "then") {
+    return new ThenToken(line, column);
+  } else if (value == "else") {
+    return new ElseToken(line, column);
   } else {
     return new IdentifierToken(value, line, column);
   }

@@ -109,5 +109,30 @@ string InToken::toString() const {
   return "In";
 }
 
+IfToken::IfToken(size_t line, size_t column) :
+  Token(line, column)
+{}
+
+string IfToken::toString() const {
+  return "If";
+}
+
+ThenToken::ThenToken(size_t line, size_t column) :
+  Token(line, column)
+{}
+
+string ThenToken::toString() const {
+  return "Then";
+}
+
+ElseToken::ElseToken(size_t line, size_t column) :
+  Token(line, column)
+{}
+
+string ElseToken::toString() const {
+  return "Else";
+}
+
+
 
 
