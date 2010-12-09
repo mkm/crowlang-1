@@ -51,6 +51,7 @@ private:
   Expr* parseTermExpr();
   CallExpr* parseCallExpr();
   LetExpr* parseLetExpr();
+  CondExpr* parseCondExpr();
   IdentExpr* parseIdentExpr();
   IntConstantExpr* parseIntConstantExpr();
   template<class T>

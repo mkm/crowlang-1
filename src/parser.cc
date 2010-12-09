@@ -121,7 +121,11 @@ Expr* Parser::parseExpr() {
       try {
         expr = parseCallExpr();
       } catch (ParseException& e) {
-        expr = parseIdentExpr();
+        try {
+          expr = parseCondExpr();
+        } catch (ParseException& e) {
+          expr = parseIdentExpr();
+        }
       }
     }
   }
@@ -157,6 +161,18 @@ LetExpr* Parser::parseLetExpr() {
   Expr* body = parseExpr();
   tr.commit();
   return new LetExpr(ident, value, body);
+}
+
+CondExpr* Parser::parseCondExpr() {
+  TrState tr(_state);
+  parseToken<IfToken>();
+  Expr* test = parseExpr();
+  parseToken<ThenToken>();
+  Expr* trueBranch = parseExpr();
+  parseToken<ElseToken>();
+  Expr* falseBranch = parseExpr();
+  tr.commit();
+  return new CondExpr(test, trueBranch, falseBranch);
 }
 
 IdentExpr* Parser::parseIdentExpr() {

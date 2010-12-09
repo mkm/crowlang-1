@@ -16,6 +16,22 @@ ATree* LetExpr::atree() const {
   return (new ATree("LetExpr"))->add(_ident->atree())->add(_value->atree())->add(_body->atree());
 }
 
+CondExpr::CondExpr(Expr* test, Expr* tBranch, Expr* fBranch) :
+  _test(test),
+  _tBranch(tBranch),
+  _fBranch(fBranch)
+{}
+
+string CondExpr::toString() const {
+  return "CondExpr";
+}
+
+ATree* CondExpr::atree() const {
+  return (new ATree("CondExpr"))->add(_test->atree())->add(_tBranch->atree())->add(_fBranch->atree());
+}
+
+
+
 IntConstantExpr::IntConstantExpr(int value) :
   _value(value)
 {}

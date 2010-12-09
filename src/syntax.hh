@@ -27,6 +27,7 @@ public:
 };
 
 class LetExpr : public Expr {
+private:
   IdentExpr* _ident;
   Expr* _value;
   Expr* _body;
@@ -38,6 +39,21 @@ public:
   IdentExpr* ident();
   Expr* value();
   Expr* body();
+};
+
+class CondExpr : public Expr {
+private:
+  Expr* _test;
+  Expr* _tBranch;
+  Expr* _fBranch;
+
+public:
+  CondExpr(Expr*, Expr*, Expr*);
+  virtual std::string toString() const;
+  virtual ATree* atree() const;
+  Expr* test();
+  Expr* tBranch();
+  Expr* fBranch();
 };
 
 class IntConstantExpr : public Expr {
