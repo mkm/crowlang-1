@@ -1,5 +1,5 @@
 #include "syntax.hh"
-#include "op.hh"
+#include "gen.hh"
 
 using namespace std;
 
