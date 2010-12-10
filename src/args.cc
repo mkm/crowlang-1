@@ -6,7 +6,8 @@ Config::Config(int argc, char** argv) :
   _sourceFile(),
   _quiet(false),
   _goal(Compile),
-  _dumpParse(false)
+  _dumpParse(false),
+  _dumpAssembly(false)
 {
   parseArgs(convertArgs(argc, argv));
 }
@@ -30,6 +31,8 @@ void Config::parseArgs(vector<string> args) {
       _quiet = true;
     } else if (*i == "--dump-parse") {
       _dumpParse = true;
+    } else if (*i == "--dump-asm") {
+      _dumpAssembly = true;
     } else {
       if (_sourceFile == "") {
         _sourceFile = *i;
@@ -57,6 +60,10 @@ Goal Config::goal() {
 
 bool Config::dumpParse() {
   return _dumpParse;
+}
+
+bool Config::dumpAssembly() {
+  return _dumpAssembly;
 }
 
 string MultipleFileException::message() const {

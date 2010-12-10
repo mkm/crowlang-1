@@ -23,6 +23,7 @@ public:
   IdentExpr(std::string);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  virtual void gen(std::vector<std::string>&);
   std::string name();
 };
 
@@ -36,6 +37,7 @@ public:
   LetExpr(IdentExpr*, Expr*, Expr*);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  virtual void gen(std::vector<std::string>&);
   IdentExpr* ident();
   Expr* value();
   Expr* body();
@@ -51,6 +53,7 @@ public:
   CondExpr(Expr*, Expr*, Expr*);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  virtual void gen(std::vector<std::string>&);
   Expr* test();
   Expr* tBranch();
   Expr* fBranch();
@@ -64,6 +67,7 @@ public:
   IntConstantExpr(int);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  virtual void gen(std::vector<std::string>&);
   int value();
 };
 
@@ -76,6 +80,7 @@ public:
   CallExpr(IdentExpr*, std::vector<Expr*>);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  virtual void gen(std::vector<std::string>&);
   IdentExpr* func();
   std::vector<Expr*> args();
 };
@@ -90,6 +95,7 @@ public:
   FuncDecl(std::string, std::vector<IdentExpr*>, Expr*);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  virtual void gen(std::vector<std::string>&);
   std::string name();
   std::vector<IdentExpr*> params();
   Expr* body();
@@ -103,6 +109,7 @@ public:
   SourceFile(std::vector<FuncDecl*>);
   virtual std::string toString() const;
   virtual ATree* atree() const;
+  virtual void gen(std::vector<std::string>&);
   std::vector<FuncDecl*> decls();
 };
 

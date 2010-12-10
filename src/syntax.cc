@@ -1,4 +1,5 @@
 #include "syntax.hh"
+#include "op.hh"
 
 using namespace std;
 
@@ -16,6 +17,10 @@ ATree* LetExpr::atree() const {
   return (new ATree("LetExpr"))->add(_ident->atree())->add(_value->atree())->add(_body->atree());
 }
 
+void LetExpr::gen(vector<string>& ins) {
+  (void)ins;
+}
+
 CondExpr::CondExpr(Expr* test, Expr* tBranch, Expr* fBranch) :
   _test(test),
   _tBranch(tBranch),
@@ -30,7 +35,9 @@ ATree* CondExpr::atree() const {
   return (new ATree("CondExpr"))->add(_test->atree())->add(_tBranch->atree())->add(_fBranch->atree());
 }
 
-
+void CondExpr::gen(vector<string>& ins) {
+  (void)ins;
+}
 
 IntConstantExpr::IntConstantExpr(int value) :
   _value(value)
@@ -42,6 +49,10 @@ string IntConstantExpr::toString() const {
 
 ATree* IntConstantExpr::atree() const {
   return new ATree("IntConstantExpr");
+}
+
+void IntConstantExpr::gen(vector<string>& ins) {
+  (void)ins;
 }
 
 int IntConstantExpr::value() {
@@ -58,6 +69,10 @@ string IdentExpr::toString() const {
 
 ATree* IdentExpr::atree() const {
   return new ATree("IdentExpr [" + _name + "]");
+}
+
+void IdentExpr::gen(vector<string>& ins) {
+  (void)ins;
 }
 
 string IdentExpr::name() {
@@ -77,6 +92,10 @@ ATree* CallExpr::atree() const {
   ATree* f = (new ATree("CallFunc"))->add(_func->atree());
   ATree* p = (new ATree("CallArgs"))->add(_args);
   return (new ATree("CallExpr"))->add(f)->add(p);
+}
+
+void CallExpr::gen(vector<string>& ins) {
+  (void)ins;
 }
 
 IdentExpr* CallExpr::func() {
@@ -103,6 +122,11 @@ ATree* FuncDecl::atree() const {
   return (new ATree("FuncDecl [" + _name + "]"))->add(p)->add(b);
 }
 
+void FuncDecl::gen(vector<string>& ins) {
+  ins.push_back(op_globl(mangle(_name)));
+  ins.push_back(op_label(mangle(_name)));
+}
+
 string FuncDecl::name() {
   return _name;
 }
@@ -125,6 +149,13 @@ string SourceFile::toString() const {
 
 ATree* SourceFile::atree() const {
   return (new ATree("SourceFile"))->add(_decls);
+}
+
+void SourceFile::gen(vector<string>& ins) {
+  vector<FuncDecl*>::const_iterator i, n;
+  for (i = _decls.begin(), n = _decls.end(); i != n; i++) {
+    (*i)->gen(ins);
+  }
 }
 
 vector<FuncDecl*> SourceFile::decls() {

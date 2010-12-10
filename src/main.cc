@@ -28,9 +28,20 @@ int main(int argc, char** argv) {
     if (config.goal() < Parse) {
       return 0;
     }
-    Syntax* syntax = parse(tokens);
+    SourceFile* syntax = parse(tokens);
     if (config.dumpParse()) {
       syntax->atree()->write(&cout);
+    }
+    if (config.goal() < Assemble) {
+      return 0;
+    }
+    vector<string> assembly;
+    syntax->gen(assembly);
+    if (config.dumpAssembly()) {
+      vector<string>::const_iterator i, n;
+      for (i = assembly.begin(), n = assembly.end(); i != n; i++) {
+        cout << *i << endl;
+      }
     }
   } catch (LexException& e) {
     if (!quiet) {

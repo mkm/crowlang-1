@@ -7,6 +7,7 @@
 enum Goal {
   Lex,
   Parse,
+  Assemble,
   Compile
 };
 
@@ -16,6 +17,7 @@ private:
   bool _quiet;
   Goal _goal;
   bool _dumpParse;
+  bool _dumpAssembly;
 
   std::vector<std::string> convertArgs(int, char**);
   void parseArgs(std::vector<std::string>);
@@ -27,6 +29,7 @@ public:
   bool quiet();
   Goal goal();
   bool dumpParse();
+  bool dumpAssembly();
 };
 
 class ArgException {
