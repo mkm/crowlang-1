@@ -17,8 +17,9 @@ ATree* LetExpr::atree() const {
   return (new ATree("LetExpr"))->add(_ident->atree())->add(_value->atree())->add(_body->atree());
 }
 
-void LetExpr::gen(vector<string>& ins) {
+void LetExpr::gen(vector<string>& ins, string dest) {
   (void)ins;
+  (void)dest;
 }
 
 CondExpr::CondExpr(Expr* test, Expr* tBranch, Expr* fBranch) :
@@ -35,8 +36,9 @@ ATree* CondExpr::atree() const {
   return (new ATree("CondExpr"))->add(_test->atree())->add(_tBranch->atree())->add(_fBranch->atree());
 }
 
-void CondExpr::gen(vector<string>& ins) {
+void CondExpr::gen(vector<string>& ins, string dest) {
   (void)ins;
+  (void)dest;
 }
 
 IntConstantExpr::IntConstantExpr(int value) :
@@ -51,8 +53,8 @@ ATree* IntConstantExpr::atree() const {
   return new ATree("IntConstantExpr");
 }
 
-void IntConstantExpr::gen(vector<string>& ins) {
-  (void)ins;
+void IntConstantExpr::gen(vector<string>& ins, string dest) {
+  ins.push_back(op_move_imm(dest, _value));
 }
 
 int IntConstantExpr::value() {
@@ -71,8 +73,9 @@ ATree* IdentExpr::atree() const {
   return new ATree("IdentExpr [" + _name + "]");
 }
 
-void IdentExpr::gen(vector<string>& ins) {
+void IdentExpr::gen(vector<string>& ins, string dest) {
   (void)ins;
+  (void)dest;
 }
 
 string IdentExpr::name() {
@@ -94,8 +97,9 @@ ATree* CallExpr::atree() const {
   return (new ATree("CallExpr"))->add(f)->add(p);
 }
 
-void CallExpr::gen(vector<string>& ins) {
+void CallExpr::gen(vector<string>& ins, string dest) {
   (void)ins;
+  (void)dest;
 }
 
 IdentExpr* CallExpr::func() {
@@ -125,6 +129,10 @@ ATree* FuncDecl::atree() const {
 void FuncDecl::gen(vector<string>& ins) {
   ins.push_back(op_globl(mangle(_name)));
   ins.push_back(op_label(mangle(_name)));
+  // stuff
+  string rv = anon();
+  _body->gen(ins, rv);
+  // stuff
 }
 
 string FuncDecl::name() {

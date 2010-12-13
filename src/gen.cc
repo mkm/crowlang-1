@@ -10,8 +10,14 @@ string mangle(string name) {
 }
 
 string anon() {
-  stringstream ss("ref");
-  ss << anonCount++;
+  stringstream ss;
+  ss << "ref" << anonCount++;
+  return ss.str();
+}
+
+string constant(int n) {
+  stringstream ss;
+  ss << "$" << n;
   return ss.str();
 }
 
@@ -23,4 +29,7 @@ string op_label(string name) {
   return name + ":";
 }
 
+string op_move_imm(string dest, int src) {
+  return "movl " + constant(src) + ", " + dest;
+}
 

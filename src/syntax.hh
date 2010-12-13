@@ -12,7 +12,8 @@ public:
 };
 
 class Expr : public Syntax {
-  
+public:
+  virtual void gen(std::vector<std::string>&, std::string) = 0;
 };
 
 class IdentExpr : public Expr {
@@ -23,7 +24,7 @@ public:
   IdentExpr(std::string);
   virtual std::string toString() const;
   virtual ATree* atree() const;
-  virtual void gen(std::vector<std::string>&);
+  virtual void gen(std::vector<std::string>&, std::string);
   std::string name();
 };
 
@@ -37,7 +38,7 @@ public:
   LetExpr(IdentExpr*, Expr*, Expr*);
   virtual std::string toString() const;
   virtual ATree* atree() const;
-  virtual void gen(std::vector<std::string>&);
+  virtual void gen(std::vector<std::string>&, std::string);
   IdentExpr* ident();
   Expr* value();
   Expr* body();
@@ -53,7 +54,7 @@ public:
   CondExpr(Expr*, Expr*, Expr*);
   virtual std::string toString() const;
   virtual ATree* atree() const;
-  virtual void gen(std::vector<std::string>&);
+  virtual void gen(std::vector<std::string>&, std::string);
   Expr* test();
   Expr* tBranch();
   Expr* fBranch();
@@ -67,7 +68,7 @@ public:
   IntConstantExpr(int);
   virtual std::string toString() const;
   virtual ATree* atree() const;
-  virtual void gen(std::vector<std::string>&);
+  virtual void gen(std::vector<std::string>&, std::string);
   int value();
 };
 
@@ -80,7 +81,7 @@ public:
   CallExpr(IdentExpr*, std::vector<Expr*>);
   virtual std::string toString() const;
   virtual ATree* atree() const;
-  virtual void gen(std::vector<std::string>&);
+  virtual void gen(std::vector<std::string>&, std::string);
   IdentExpr* func();
   std::vector<Expr*> args();
 };
