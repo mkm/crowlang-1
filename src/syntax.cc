@@ -17,9 +17,10 @@ ATree* LetExpr::atree() const {
   return (new ATree("LetExpr"))->add(_ident->atree())->add(_value->atree())->add(_body->atree());
 }
 
-void LetExpr::gen(vector<string>& ins, string dest) {
+void LetExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
   (void)ins;
   (void)dest;
+  (void)sym;
 }
 
 CondExpr::CondExpr(Expr* test, Expr* tBranch, Expr* fBranch) :
@@ -36,9 +37,10 @@ ATree* CondExpr::atree() const {
   return (new ATree("CondExpr"))->add(_test->atree())->add(_tBranch->atree())->add(_fBranch->atree());
 }
 
-void CondExpr::gen(vector<string>& ins, string dest) {
+void CondExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
   (void)ins;
   (void)dest;
+  (void)sym;
 }
 
 IntConstantExpr::IntConstantExpr(int value) :
@@ -53,8 +55,8 @@ ATree* IntConstantExpr::atree() const {
   return new ATree("IntConstantExpr");
 }
 
-void IntConstantExpr::gen(vector<string>& ins, string dest) {
-  ins.push_back(op_move_imm(dest, _value));
+void IntConstantExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
+  op_move_imm(ins, dest, _value, sym);
 }
 
 int IntConstantExpr::value() {
@@ -73,9 +75,10 @@ ATree* IdentExpr::atree() const {
   return new ATree("IdentExpr [" + _name + "]");
 }
 
-void IdentExpr::gen(vector<string>& ins, string dest) {
+void IdentExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
   (void)ins;
   (void)dest;
+  (void)sym;
 }
 
 string IdentExpr::name() {
@@ -97,9 +100,10 @@ ATree* CallExpr::atree() const {
   return (new ATree("CallExpr"))->add(f)->add(p);
 }
 
-void CallExpr::gen(vector<string>& ins, string dest) {
+void CallExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
   (void)ins;
   (void)dest;
+  (void)sym;
 }
 
 IdentExpr* CallExpr::func() {
@@ -127,11 +131,12 @@ ATree* FuncDecl::atree() const {
 }
 
 void FuncDecl::gen(vector<string>& ins) {
+  SymbolTable sym;
   ins.push_back(op_globl(mangle(_name)));
   ins.push_back(op_label(mangle(_name)));
   // stuff
   string rv = anon();
-  _body->gen(ins, rv);
+  _body->gen(ins, rv, sym);
   // stuff
 }
 
