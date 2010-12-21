@@ -76,9 +76,8 @@ ATree* IdentExpr::atree() const {
 }
 
 void IdentExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
-  (void)ins;
-  (void)dest;
-  (void)sym;
+  loadVar(ins, EAX, _name, sym);
+  saveVar(ins, dest, EAX, sym);
 }
 
 string IdentExpr::name() {
@@ -134,10 +133,14 @@ void FuncDecl::gen(vector<string>& ins) {
   SymbolTable sym;
   ins.push_back(op_globl(mangle(_name)));
   ins.push_back(op_label(mangle(_name)));
-  // stuff
+  opgen(ins, "pushl", regName(EBP));
+  opgen(ins, "movl", regName(EBP), regName(ESP));
   string rv = anon();
   _body->gen(ins, rv, sym);
-  // stuff
+  loadVar(ins, EAX, rv, sym);
+  opgen(ins, "movl", regName(ESP), regName(EBP));
+  opgen(ins, "popl", regName(EBP));
+  opgen(ins, "ret");
 }
 
 string FuncDecl::name() {

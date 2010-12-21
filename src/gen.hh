@@ -35,6 +35,8 @@ std::string constant(int);
 
 std::string regName(Register);
 
+void opgen(std::vector<std::string>&, std::string);
+void opgen(std::vector<std::string>&, std::string, std::string);
 void opgen(std::vector<std::string>&, std::string, std::string, std::string);
 
 void loadVar(std::vector<std::string>&, Register, std::string, SymbolTable&);
