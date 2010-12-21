@@ -18,9 +18,9 @@ ATree* LetExpr::atree() const {
 }
 
 void LetExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
-  (void)ins;
-  (void)dest;
-  (void)sym;
+  string name = _ident->name();
+  _value->gen(ins, name, sym);
+  _body->gen(ins, dest, sym);
 }
 
 CondExpr::CondExpr(Expr* test, Expr* tBranch, Expr* fBranch) :
