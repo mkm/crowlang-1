@@ -76,15 +76,31 @@ void saveVar(vector<string>& ins, string dest, Register src, SymbolTable& sym) {
   opgen(ins, "movl", sym.pos(dest), regName(src));
 }
 
-string op_globl(string name) {
-  return ".globl " + name;
+void op_globl(vector<string>& ins, string name) {
+  ins.push_back(".globl " + name);
 }
 
-string op_label(string name) {
-  return name + ":";
+void op_label(vector<string>& ins, string name) {
+  ins.push_back(name + ":");
 }
 
 void op_move_imm(vector<string>& ins, string dest, int src, SymbolTable& sym) {
   opgen(ins, "movl", regName(EAX), constant(src));
   saveVar(ins, dest, EAX, sym);
 }
+
+void op_test(vector<string>& ins, string dest, string src, SymbolTable& sym) {
+  loadVar(ins, EAX, dest, sym);
+  loadVar(ins, EBX, src, sym);
+  opgen(ins, "test", regName(EAX), regName(EBX));
+}
+
+void op_jmp(vector<string>& ins, string dest) {
+  opgen(ins, "jmp", dest);
+}
+
+void op_je(vector<string>& ins, string dest) {
+  opgen(ins, "je", dest);
+}
+
+

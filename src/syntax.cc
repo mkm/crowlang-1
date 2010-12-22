@@ -38,9 +38,19 @@ ATree* CondExpr::atree() const {
 }
 
 void CondExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
-  (void)ins;
-  (void)dest;
-  (void)sym;
+  string idTest = anon();
+  string idZero = anon();
+  string labelElse = anon();
+  string labelEnd = anon();
+  _test->gen(ins, idTest, sym);
+  op_move_imm(ins, idZero, 0, sym);
+  op_test(ins, idTest, idZero, sym);
+  op_je(ins, labelElse);
+  _tBranch->gen(ins, dest, sym);
+  op_jmp(ins, labelEnd);
+  op_label(ins, labelElse);
+  _fBranch->gen(ins, dest, sym);
+  op_label(ins, labelEnd);
 }
 
 IntConstantExpr::IntConstantExpr(int value) :
@@ -131,8 +141,8 @@ ATree* FuncDecl::atree() const {
 
 void FuncDecl::gen(vector<string>& ins) {
   SymbolTable sym;
-  ins.push_back(op_globl(mangle(_name)));
-  ins.push_back(op_label(mangle(_name)));
+  op_globl(ins, mangle(_name));
+  op_label(ins, mangle(_name));
   opgen(ins, "pushl", regName(EBP));
   opgen(ins, "movl", regName(EBP), regName(ESP));
   string rv = anon();
