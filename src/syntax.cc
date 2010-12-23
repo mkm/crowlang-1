@@ -145,12 +145,17 @@ void FuncDecl::gen(vector<string>& ins) {
   op_label(ins, mangle(_name));
   opgen(ins, "pushl", regName(EBP));
   opgen(ins, "movl", regName(EBP), regName(ESP));
+
+  vector<string> insRest;
   string rv = anon();
-  _body->gen(ins, rv, sym);
-  loadVar(ins, EAX, rv, sym);
-  opgen(ins, "movl", regName(ESP), regName(EBP));
-  opgen(ins, "popl", regName(EBP));
-  opgen(ins, "ret");
+  _body->gen(insRest, rv, sym);
+  loadVar(insRest, EAX, rv, sym);
+  opgen(insRest, "movl", regName(ESP), regName(EBP));
+  opgen(insRest, "popl", regName(EBP));
+  opgen(insRest, "ret");
+
+  opgen(ins, "subl", regName(ESP), constant(sym.stackSpace()));
+  ins.insert(ins.end(), insRest.begin(), insRest.end());
 }
 
 string FuncDecl::name() {

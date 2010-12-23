@@ -4,22 +4,27 @@
 using namespace std;
 
 SymbolTable::SymbolTable() :
-  _lastVar(-4)
+  _varCount(0)
 {}
 
 SymbolTable::SymbolTable(vector<string>& params) :
-  _lastVar(-4)
+  _varCount(0)
 {
   (void)params;
 }
 
 string SymbolTable::pos(string var) {
   if (_symbols.find(var) == _symbols.end()) {
-    _symbols[var] = (_lastVar -= 4);
+    _varCount += 1;
+    _symbols[var] = _varCount * -4;
   }
   stringstream ss;
   ss << _symbols[var] << "(" << regName(EBP) << ")";
   return ss.str();
+}
+
+int SymbolTable::stackSpace() {
+  return _varCount * 4;
 }
 
 int anonCount = 0;

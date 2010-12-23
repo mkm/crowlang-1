@@ -8,13 +8,14 @@
 class SymbolTable {
 private:
   std::map<std::string, int> _symbols;
-  int _lastVar;
+  int _varCount;
 
 public:
   SymbolTable();
   SymbolTable(std::vector<std::string>&);
 
   std::string pos(std::string);
+  int stackSpace();
 };
 
 enum Register {
