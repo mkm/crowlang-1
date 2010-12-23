@@ -100,6 +100,7 @@ public:
   virtual void gen(std::vector<std::string>&);
   std::string name();
   std::vector<IdentExpr*> params();
+  std::vector<std::string> paramNames();
   Expr* body();
 };
 

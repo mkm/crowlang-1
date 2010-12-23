@@ -5,8 +5,8 @@ function log() {
     $@
 }
 
-log $CROWC test.cr --dump-asm >test.s
-as test.s -o test.o
-log gcc testc.c -c -o testc.o
-log gcc testc.o test.o -o test
+log $CROWC test.cr --dump-asm >test.s || exit 1
+as test.s -o test.o || exit 1
+log gcc testc.c -c -o testc.o || exit 1
+log gcc testc.o test.o -o test || exit 1
 ./test || exit 1

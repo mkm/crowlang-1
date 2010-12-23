@@ -29,11 +29,35 @@ int test_f4() {
   return expect(8, __crow_f4());
 }
 
+int __crow_f5();
+int test_f5() {
+  return expect(13, __crow_f5(7));
+}
+
+int __crow_f6();
+int test_f6() {
+  return expect(9, __crow_f6(4, 6));
+}
+
+int __crow_add(int a, int b) {
+  return a + b;
+}
+
+int __crow_sub(int a, int b) {
+  return a - b;
+}
+
+int __crow_equal(int a, int b) {
+  return a == b;
+}
+
 int (*funs[])() = {
   test_f1,
   test_f2,
   test_f3,
   test_f4,
+  //test_f5,
+  test_f6,
   NULL
 };
 

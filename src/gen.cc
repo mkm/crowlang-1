@@ -10,7 +10,12 @@ SymbolTable::SymbolTable() :
 SymbolTable::SymbolTable(vector<string>& params) :
   _varCount(0)
 {
-  (void)params;
+  int argCount = 0;
+  vector<string>::const_iterator i, n;
+  for (i = params.begin(), n = params.end(); i != n; i++) {
+    argCount += 1;
+    _symbols[*i] = (argCount + 1) * 4;
+  }
 }
 
 string SymbolTable::pos(string var) {

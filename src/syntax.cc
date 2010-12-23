@@ -116,8 +116,8 @@ void CallExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
     (*i)->gen(ins, argName, sym);
     op_push(ins, argName, sym);
   }
-  op_call(ins, _func->name());
-  opgen(ins, "add", regName(ESP), constant(_args.size() * 4));
+  op_call(ins, mangle(_func->name()));
+  opgen(ins, "addl", regName(ESP), constant(_args.size() * 4));
   saveVar(ins, dest, EAX, sym);
 }
 
@@ -146,7 +146,8 @@ ATree* FuncDecl::atree() const {
 }
 
 void FuncDecl::gen(vector<string>& ins) {
-  SymbolTable sym;
+  vector<string> symInit = paramNames();
+  SymbolTable sym(symInit);
   op_globl(ins, mangle(_name));
   op_label(ins, mangle(_name));
   opgen(ins, "pushl", regName(EBP));
@@ -168,8 +169,17 @@ string FuncDecl::name() {
   return _name;
 }
 
-std::vector<IdentExpr*> FuncDecl::params() {
+vector<IdentExpr*> FuncDecl::params() {
   return _params;
+}
+
+vector<string> FuncDecl::paramNames() {
+  vector<string> names;
+  vector<IdentExpr*>::const_iterator i, n;
+  for (i = _params.begin(), n = _params.end(); i != n; i++) {
+    names.push_back((*i)->name());
+  }
+  return names;
 }
 
 Expr* FuncDecl::body() {
