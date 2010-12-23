@@ -108,4 +108,14 @@ void op_je(vector<string>& ins, string dest) {
   opgen(ins, "je", dest);
 }
 
+void op_call(vector<string>& ins, string dest) {
+  opgen(ins, "call", dest);
+}
+
+void op_push(vector<string>& ins, string dest, SymbolTable& sym) {
+  loadVar(ins, EAX, dest, sym);
+  opgen(ins, "pushl", regName(EAX));
+}
+
+
 

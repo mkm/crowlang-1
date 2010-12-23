@@ -110,9 +110,15 @@ ATree* CallExpr::atree() const {
 }
 
 void CallExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
-  (void)ins;
-  (void)dest;
-  (void)sym;
+  vector<Expr*>::const_reverse_iterator i, n;
+  for (i = _args.rbegin(), n = _args.rend(); i != n; i++) {
+    string argName = anon();
+    (*i)->gen(ins, argName, sym);
+    op_push(ins, argName, sym);
+  }
+  op_call(ins, _func->name());
+  opgen(ins, "add", regName(ESP), constant(_args.size() * 4));
+  saveVar(ins, dest, EAX, sym);
 }
 
 IdentExpr* CallExpr::func() {
