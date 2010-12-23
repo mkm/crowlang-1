@@ -31,8 +31,8 @@ int test_f4() {
 
 int (*funs[])() = {
   test_f1,
-  //test_f2,
-  //test_f3,
+  test_f2,
+  test_f3,
   test_f4,
   NULL
 };

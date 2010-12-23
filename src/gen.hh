@@ -47,7 +47,7 @@ void op_globl(std::vector<std::string>&, std::string);
 void op_label(std::vector<std::string>&, std::string);
 
 void op_move_imm(std::vector<std::string>&, std::string, int, SymbolTable&);
-void op_test(std::vector<std::string>&, std::string, std::string, SymbolTable&);
+void op_cmp(std::vector<std::string>&, std::string, std::string, SymbolTable&);
 void op_jmp(std::vector<std::string>&, std::string);
 void op_je(std::vector<std::string>&, std::string);
 

@@ -44,7 +44,7 @@ void CondExpr::gen(vector<string>& ins, string dest, SymbolTable& sym) {
   string labelEnd = anon();
   _test->gen(ins, idTest, sym);
   op_move_imm(ins, idZero, 0, sym);
-  op_test(ins, idTest, idZero, sym);
+  op_cmp(ins, idTest, idZero, sym);
   op_je(ins, labelElse);
   _tBranch->gen(ins, dest, sym);
   op_jmp(ins, labelEnd);

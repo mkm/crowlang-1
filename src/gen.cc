@@ -94,10 +94,10 @@ void op_move_imm(vector<string>& ins, string dest, int src, SymbolTable& sym) {
   saveVar(ins, dest, EAX, sym);
 }
 
-void op_test(vector<string>& ins, string dest, string src, SymbolTable& sym) {
+void op_cmp(vector<string>& ins, string dest, string src, SymbolTable& sym) {
   loadVar(ins, EAX, dest, sym);
   loadVar(ins, EBX, src, sym);
-  opgen(ins, "test", regName(EAX), regName(EBX));
+  opgen(ins, "cmpl", regName(EAX), regName(EBX));
 }
 
 void op_jmp(vector<string>& ins, string dest) {
