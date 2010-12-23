@@ -1,3 +1,5 @@
 .sconsign.dblite
 src/crowc
 *.o
+test/test.s
+test/test
