@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export CROWC="src/crowc"
+export CROWC="$PWD/src/crowc"
 
 scons || exit 1
 cd test
