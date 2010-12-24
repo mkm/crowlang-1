@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     if (config.dumpParse()) {
       syntax->atree()->write(&cout);
     }
-    if (config.goal() < Assemble) {
+    if (config.goal() < Compile) {
       return 0;
     }
     ofstream asmFile(config.outputFile());

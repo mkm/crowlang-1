@@ -7,8 +7,8 @@
 enum Goal {
   Lex,
   Parse,
-  Assemble,
-  Compile
+  Compile,
+  Link
 };
 
 class Config {

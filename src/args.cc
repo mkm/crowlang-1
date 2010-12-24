@@ -5,7 +5,7 @@ using namespace std;
 Config::Config(int argc, char** argv) :
   _sourceFile(),
   _quiet(false),
-  _goal(Compile),
+  _goal(Link),
   _dumpParse(false),
   _dumpAssembly(false),
   _outputFile("a.out")
@@ -28,6 +28,8 @@ void Config::parseArgs(vector<string> args) {
       _goal = Lex;
     } else if (*i == "--parse") {
       _goal = Parse;
+    } else if (*i == "--compile" || *i == "-c") {
+      _goal = Compile;
     } else if (*i == "--quiet") {
       _quiet = true;
     } else if (*i == "--dump-parse") {
