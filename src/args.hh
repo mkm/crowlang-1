@@ -18,6 +18,7 @@ private:
   Goal _goal;
   bool _dumpParse;
   bool _dumpAssembly;
+  std::string _outputFile;
 
   std::vector<std::string> convertArgs(int, char**);
   void parseArgs(std::vector<std::string>);
@@ -30,6 +31,7 @@ public:
   Goal goal();
   bool dumpParse();
   bool dumpAssembly();
+  std::string outputFile();
 };
 
 class ArgException {

@@ -35,13 +35,12 @@ int main(int argc, char** argv) {
     if (config.goal() < Assemble) {
       return 0;
     }
+    ofstream asmFile(config.outputFile());
     vector<string> assembly;
     syntax->gen(assembly);
-    if (config.dumpAssembly()) {
-      vector<string>::const_iterator i, n;
-      for (i = assembly.begin(), n = assembly.end(); i != n; i++) {
-        cout << *i << endl;
-      }
+    vector<string>::const_iterator i, n;
+    for (i = assembly.begin(), n = assembly.end(); i != n; i++) {
+      asmFile << *i << endl;
     }
   } catch (LexException& e) {
     if (!quiet) {

@@ -7,7 +7,8 @@ Config::Config(int argc, char** argv) :
   _quiet(false),
   _goal(Compile),
   _dumpParse(false),
-  _dumpAssembly(false)
+  _dumpAssembly(false),
+  _outputFile("a.out")
 {
   parseArgs(convertArgs(argc, argv));
 }
@@ -33,6 +34,9 @@ void Config::parseArgs(vector<string> args) {
       _dumpParse = true;
     } else if (*i == "--dump-asm") {
       _dumpAssembly = true;
+    } else if (*i == "-o") {
+      i++;
+      _outputFile = *i;
     } else {
       if (_sourceFile == "") {
         _sourceFile = *i;
@@ -64,6 +68,10 @@ bool Config::dumpParse() {
 
 bool Config::dumpAssembly() {
   return _dumpAssembly;
+}
+
+string Config::outputFile() {
+  return _outputFile;
 }
 
 string MultipleFileException::message() const {
