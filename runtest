@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export CROWC="$PWD/src/crowc"
+export FSROOT="$PWD/fsroot"
+export CROWC="$FSROOT/bin/crowc"
 
 scons || exit 1
 cd test
