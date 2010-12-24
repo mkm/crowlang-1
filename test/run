@@ -8,5 +8,5 @@ function log() {
 log "$CROWC" test.cr -c -o test.s || exit 1
 as test.s -o test.o || exit 1
 log gcc testc.c -c -o testc.o || exit 1
-log gcc testc.o test.o -o test || exit 1
+log "$CROWL" testc.o test.o -o test || exit 1
 ./test || exit 1

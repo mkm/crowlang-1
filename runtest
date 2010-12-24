@@ -2,6 +2,7 @@
 
 export FSROOT="$PWD/fsroot"
 export CROWC="$FSROOT/bin/crowc"
+export CROWL="$FSROOT/bin/crowl"
 
 scons || exit 1
 cd test
