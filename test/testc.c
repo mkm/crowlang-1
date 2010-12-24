@@ -31,7 +31,7 @@ int test_f4() {
 
 int __crow_f5();
 int test_f5() {
-  return expect(13, __crow_f5(7));
+  return expect(34, __crow_f5(9));
 }
 
 int __crow_f6();
@@ -56,7 +56,7 @@ int (*funs[])() = {
   test_f2,
   test_f3,
   test_f4,
-  //test_f5,
+  test_f5,
   test_f6,
   NULL
 };

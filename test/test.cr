@@ -7,5 +7,5 @@ f5(x)
            then 0
            else if equal(x, 1)
                 then 1
-                else add(f5(x), f5(sub(x, 1)));
+                else add(f5(sub(x, 1)), f5(sub(x, 2)));
 f6(a, b) sub(add(a, b), 1);
