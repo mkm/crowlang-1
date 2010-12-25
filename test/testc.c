@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "tuple.h"
 
 int expect(int wanted, int got) {
   if (wanted == got) {
@@ -39,6 +40,14 @@ int test_f6() {
   return expect(9, __crow_f6(4, 6));
 }
 
+int __crow_f7();
+int test_f7() {
+  Tuple t = tuple(2);
+  setFieldV(t, 0, 13);
+  setFieldV(t, 1, 17);
+  return expect(30, __crow_f7(t));
+}
+
 int (*funs[])() = {
   test_f1,
   test_f2,
@@ -46,6 +55,7 @@ int (*funs[])() = {
   test_f4,
   test_f5,
   test_f6,
+  test_f7,
   NULL
 };
 
