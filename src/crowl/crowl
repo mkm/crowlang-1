@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gcc "$FSROOT/lib/libcrowrt.a" $@
+gcc $@ "-L$FSROOT/lib" -lcrowrt

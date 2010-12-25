@@ -39,18 +39,6 @@ int test_f6() {
   return expect(9, __crow_f6(4, 6));
 }
 
-int __crow_add(int a, int b) {
-  return a + b;
-}
-
-int __crow_sub(int a, int b) {
-  return a - b;
-}
-
-int __crow_equal(int a, int b) {
-  return a == b;
-}
-
 int (*funs[])() = {
   test_f1,
   test_f2,
