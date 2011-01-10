@@ -59,11 +59,11 @@ Tuple __crow_tuple(int length) {
   return tuple(length);
 }
 
-int __crow_getField(Tuple t, int i) {
+int __crow_get(Tuple t, int i) {
   return getFieldV(t, i);
 }
 
-int __crow_setField(Tuple t, int i, int v) {
+int __crow_set(Tuple t, int i, int v) {
   setFieldV(t, i, v);
   return 0;
 }

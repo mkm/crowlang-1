@@ -9,4 +9,4 @@ f5(x) =
                 then 1
                 else add(f5(sub(x, 1)), f5(sub(x, 2)));
 f6(a, b) = sub(add(a, b), 1);
-f7(t) = add(getField(t, 0), getField(t, 1));
+f7(t) = add(get(t, 0), get(t, 1));
