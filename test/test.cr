@@ -10,3 +10,7 @@ f5(x) =
          else add(f5(sub(x, 1)), f5(sub(x, 2)));
 f6(a, b) = sub(add(a, b), 1);
 f7(t) = add(get(t, 0), get(t, 1));
+f8(a, b) =
+    if a
+    then tuple2(get(a, 0), f8(get(a, 1), b))
+    else b;

@@ -9,7 +9,7 @@ size_t listLength(Tuple t) {
 }
 
 char* listToString(Tuple t) {
-  size_t len = list_length(t);
+  size_t len = listLength(t);
   char* s = malloc(len + 1);
   char* p = s;
   while (t) {

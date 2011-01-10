@@ -48,6 +48,15 @@ int test_f7() {
   return expect(30, __crow_f7(t));
 }
 
+int __crow_f8();
+int test_f8() {
+  const char* foo = "foo";
+  const char* bar = "bar";
+  const char* foobar = "foobar";
+  char* s = listToString(__crow_f8(stringToList(foo), stringToList(bar)));
+  return expect(0, memcmp(foobar, s, strlen(foobar)));
+}
+
 int (*funs[])() = {
   test_f1,
   test_f2,
@@ -56,6 +65,7 @@ int (*funs[])() = {
   test_f5,
   test_f6,
   test_f7,
+  test_f8,
   NULL
 };
 

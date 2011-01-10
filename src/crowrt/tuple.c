@@ -59,6 +59,27 @@ Tuple __crow_tuple(int length) {
   return tuple(length);
 }
 
+Tuple __crow_tuple1(int a) {
+  Tuple t = tuple(1);
+  setFieldV(t, 0, a);
+  return t;
+}
+
+Tuple __crow_tuple2(int a, int b) {
+  Tuple t = tuple(2);
+  setFieldV(t, 0, a);
+  setFieldV(t, 1, b);
+  return t;
+}
+
+Tuple __crow_tuple3(int a, int b, int c) {
+  Tuple t = tuple(3);
+  setFieldV(t, 0, a);
+  setFieldV(t, 1, b);
+  setFieldV(t, 2, c);
+  return t;
+}
+
 int __crow_get(Tuple t, int i) {
   return getFieldV(t, i);
 }
