@@ -10,3 +10,9 @@ log as test.s -o test.o || exit 1
 log gcc "-I$FSROOT/include/crow" testc.c -c -o testc.o || exit 1
 log "$CROWL" testc.o test.o -o test || exit 1
 ./test || exit 1
+
+log "$CROWC" cat.cr -c -o cat.s || exit 1
+log as cat.s -o cat.o || exit 1
+log gcc "-I$FSROOT/include/crow" catc.c -c -o catc.o || exit 1
+log "$CROWL" catc.o cat.o -o cat || exit 1
+[ "antidisestablishmentarianism" = "$(echo "antidisestablishmentarianism" | ./cat )" ] || exit 1
