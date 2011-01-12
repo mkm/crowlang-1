@@ -1,5 +1,7 @@
 #include "tuple.h"
 #include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 int __crow_stdin() {
   return STDIN_FILENO;
@@ -11,6 +13,16 @@ int __crow_stdout() {
 
 int __crow_stderr() {
   return STDERR_FILENO;
+}
+
+int __crow_openFile(Tuple t) {
+  char* s = listToString(t);
+  int fd = open(s, O_RDWR | O_CREAT);
+  if (fd == -1) {
+    printf("Could not open file\n");
+    exit(2);
+  }
+  return fd;
 }
 
 Tuple __crow_readFile(int fd) {
