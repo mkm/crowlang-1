@@ -1,7 +1,9 @@
 #include "tuple.h"
+#include "string.h"
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int __crow_stdin() {
   return STDIN_FILENO;
@@ -23,6 +25,10 @@ int __crow_openFile(Tuple t) {
     exit(2);
   }
   return fd;
+}
+
+int __crow_closeFile(int fd) {
+  close(fd);
 }
 
 Tuple __crow_readFile(int fd) {
