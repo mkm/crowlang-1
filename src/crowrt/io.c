@@ -29,6 +29,7 @@ int __crow_openFile(Tuple t) {
 
 int __crow_closeFile(int fd) {
   close(fd);
+  return 0;
 }
 
 Tuple __crow_readFile(int fd) {

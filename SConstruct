@@ -1,4 +1,5 @@
-env = Environment(CXXFLAGS = "-O2 -Wall -Wextra -Werror -std=c++0x -pedantic")
+env = Environment(CXXFLAGS = "-O2 -Wall -Wextra -Werror -std=c++0x -pedantic",
+                  CFLAGS = "-O2 -Wall -Wextra -Werror -std=c99 -pedantic")
 
 destdir = ARGUMENTS.get("destdir", "")
 
