@@ -1,5 +1,5 @@
-#ifndef _STRING_H_
-#define _STRING_H_
+#ifndef _STR_H_
+#define _STR_H_
 
 #include "tuple.h"
 #include <stdlib.h>

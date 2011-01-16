@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <string.h>
 #include "tuple.h"
+#include "str.h"
 
 int expect(int wanted, int got) {
   if (wanted == got) {
@@ -48,7 +50,7 @@ int test_f7() {
   return expect(30, __crow_f7(t));
 }
 
-int __crow_f8();
+Tuple __crow_f8();
 int test_f8() {
   const char* foo = "foo";
   const char* bar = "bar";

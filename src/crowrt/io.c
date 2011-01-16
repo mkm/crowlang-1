@@ -1,5 +1,5 @@
 #include "tuple.h"
-#include "string.h"
+#include "str.h"
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
